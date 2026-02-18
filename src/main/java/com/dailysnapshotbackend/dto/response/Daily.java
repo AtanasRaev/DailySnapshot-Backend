@@ -1,4 +1,4 @@
-package com.dailysnapshotbackend.dto;
+package com.dailysnapshotbackend.dto.response;
 
 import lombok.Getter;
 import lombok.Setter;
