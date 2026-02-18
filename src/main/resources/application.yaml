@@ -6,3 +6,5 @@ external:
   open-meteo:
     baseUrl: https://api.open-meteo.com/v1
     geocodingBaseUrl: https://geocoding-api.open-meteo.com/v1
+  frankfurter:
+    baseUrl: https://api.frankfurter.dev/v1
