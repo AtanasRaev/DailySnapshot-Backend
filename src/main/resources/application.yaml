@@ -8,3 +8,5 @@ external:
     geocodingBaseUrl: https://geocoding-api.open-meteo.com/v1
   frankfurter:
     baseUrl: https://api.frankfurter.dev/v1
+  news:
+    baseUrl: https://news.google.com/rss/search
