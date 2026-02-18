@@ -14,8 +14,8 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api")
-public class WebController {
+@RequestMapping("/api/weather")
+public class WeatherController {
     private final WeatherService weatherService;
 
     @GetMapping("/search")
@@ -23,7 +23,7 @@ public class WebController {
         return ResponseEntity.ok(this.weatherService.getCity(input));
     }
 
-    @GetMapping("/weather")
+    @GetMapping()
     public ResponseEntity<WeatherDataDTO> getWeather(@RequestParam("latitude") double latitude,
                                                      @RequestParam("longitude") double longitude,
                                                      @RequestParam("city") String city) {
