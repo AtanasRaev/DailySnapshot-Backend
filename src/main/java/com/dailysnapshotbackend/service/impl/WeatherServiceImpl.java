@@ -1,14 +1,18 @@
 package com.dailysnapshotbackend.service.impl;
 
 import com.dailysnapshotbackend.config.OpenMeteoProperties;
-import com.dailysnapshotbackend.dto.OpenMeteoForecastResponse;
+import com.dailysnapshotbackend.dto.CityDataDTO;
 import com.dailysnapshotbackend.dto.WeatherDataDTO;
+import com.dailysnapshotbackend.dto.response.OpenMeteoForecastResponse;
+import com.dailysnapshotbackend.dto.response.SearchResponse;
 import com.dailysnapshotbackend.enums.WeatherCondition;
 import com.dailysnapshotbackend.service.WeatherService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.List;
 
 @AllArgsConstructor
 @Service
@@ -27,7 +31,7 @@ public class WeatherServiceImpl implements WeatherService {
                 .queryParam("timezone", "auto")
                 .toUriString();
 
-        OpenMeteoForecastResponse response = restClient.get()
+        OpenMeteoForecastResponse response = this.restClient.get()
                 .uri(uri)
                 .retrieve()
                 .body(OpenMeteoForecastResponse.class);
@@ -44,5 +48,26 @@ public class WeatherServiceImpl implements WeatherService {
                 Math.round(response.getDaily().getTemperature_2m_max()[0]),
                 WeatherCondition.fromCode(response.getCurrent().getWeather_code())
         );
+    }
+
+    @Override
+    public List<CityDataDTO> getCity(String input) {
+        String uri = UriComponentsBuilder.fromUriString(this.openMeteoProperties.getGeocodingBaseUrl())
+                .path("/search")
+                .queryParam("name", input)
+                .toUriString();
+
+        SearchResponse response = this.restClient.get()
+                .uri(uri)
+                .retrieve()
+                .body(SearchResponse.class);
+
+        if (response == null || response.getResults() == null) {
+            throw new IllegalStateException();
+        }
+
+        return response.getResults().stream()
+                .map(city -> new CityDataDTO(city.getName(), city.getLatitude(), city.getLongitude(), city.getCountry()))
+                .toList();
     }
 }
