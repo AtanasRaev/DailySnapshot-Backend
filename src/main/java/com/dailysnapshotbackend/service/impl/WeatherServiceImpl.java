@@ -21,7 +21,7 @@ public class WeatherServiceImpl implements WeatherService {
     private final OpenMeteoProperties openMeteoProperties;
 
     @Override
-    public WeatherDataDTO getWeatherData(double latitude, double longitude, String city) {
+    public WeatherDataDTO getWeatherData(double latitude, double longitude) {
         String uri = UriComponentsBuilder.fromUriString(this.openMeteoProperties.getBaseUrl())
                 .path("/forecast")
                 .queryParam("latitude", latitude)
@@ -41,7 +41,6 @@ public class WeatherServiceImpl implements WeatherService {
         }
 
         return new WeatherDataDTO(
-                city,
                 Math.round(response.getCurrent().getTemperature_2m()),
                 Math.round(response.getCurrent().getApparent_temperature()),
                 Math.round(response.getDaily().getTemperature_2m_min()[0]),

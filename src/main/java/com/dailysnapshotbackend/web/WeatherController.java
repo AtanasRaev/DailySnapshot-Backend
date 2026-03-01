@@ -25,8 +25,7 @@ public class WeatherController {
 
     @GetMapping()
     public ResponseEntity<WeatherDataDTO> getWeather(@RequestParam("latitude") double latitude,
-                                                     @RequestParam("longitude") double longitude,
-                                                     @RequestParam("city") String city) {
-        return ResponseEntity.ok(this.weatherService.getWeatherData(latitude, longitude, city));
+                                                     @RequestParam("longitude") double longitude) {
+        return ResponseEntity.ok(this.weatherService.getWeatherData(latitude, longitude));
     }
 }

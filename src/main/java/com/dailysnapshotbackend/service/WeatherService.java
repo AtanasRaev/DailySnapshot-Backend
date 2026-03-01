@@ -8,5 +8,5 @@ import java.util.List;
 public interface WeatherService {
     List<CityDataDTO> getCity(String input);
 
-    WeatherDataDTO getWeatherData(double latitude, double longitude, String city);
+    WeatherDataDTO getWeatherData(double latitude, double longitude);
 }
