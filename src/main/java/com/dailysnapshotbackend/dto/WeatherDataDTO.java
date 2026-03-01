@@ -9,7 +9,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class WeatherDataDTO {
-    private String city;
     private Long temperature;
     private Long feelsLike;
     private Long todayMin;
