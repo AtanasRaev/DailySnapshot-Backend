@@ -51,6 +51,11 @@ public class WeatherServiceImpl implements WeatherService {
 
     @Override
     public List<CityDataDTO> getCity(String input) {
+
+        if (input == null || input.isBlank()) {
+            return List.of();
+        }
+
         String uri = UriComponentsBuilder.fromUriString(this.openMeteoProperties.getGeocodingBaseUrl())
                 .path("/search")
                 .queryParam("name", input)
@@ -62,7 +67,7 @@ public class WeatherServiceImpl implements WeatherService {
                 .body(SearchResponse.class);
 
         if (response == null || response.getResults() == null) {
-            throw new IllegalStateException();
+            return List.of();
         }
 
         return response.getResults().stream()
