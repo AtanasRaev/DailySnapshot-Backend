@@ -18,7 +18,7 @@ import java.util.List;
 public class WeatherController {
     private final WeatherService weatherService;
 
-    @GetMapping("/search")
+    @GetMapping("/city")
     public ResponseEntity<List<CityDataDTO>> search(@RequestParam("name") String input) {
         return ResponseEntity.ok(this.weatherService.getCity(input));
     }
