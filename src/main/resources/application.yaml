@@ -2,6 +2,10 @@ spring:
   application:
     name: DailySnapshot-Backend
 
+server:
+  address: 192.168.1.157
+  port: 8080
+
 external:
   open-meteo:
     baseUrl: https://api.open-meteo.com/v1
